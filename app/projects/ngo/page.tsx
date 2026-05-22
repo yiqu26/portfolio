@@ -25,6 +25,19 @@ export default function NgoPage() {
           非營利組織管理平台，包含用戶前台與員工後台，從需求規劃、開發到部署獨立完成。
         </p>
 
+        {/* Screenshot placeholder */}
+        <div className="w-full rounded-xl overflow-hidden border mb-8"
+          style={{
+            aspectRatio: "16/9",
+            background: "var(--bg-3)",
+            backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)`,
+            backgroundSize: "24px 24px",
+            borderColor: "var(--border)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+          }}>
+          <span className="font-mono text-xs" style={{ color: "var(--text-3)" }}>ngo-management-hub.com</span>
+        </div>
+
         <div className="flex flex-wrap gap-3 mb-12">
           <a href="https://ngo-management-hub.com" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium"

@@ -15,39 +15,59 @@ export default function ProjectCard({ href, title, description, tags, demo, exte
     <Link
       href={href}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className="group block p-6 rounded-xl border transition-all duration-200"
+      className="group block rounded-xl border overflow-hidden card-hover"
       style={{ background: "var(--bg-2)", borderColor: "var(--border)" }}
-      onMouseEnter={e => {
-        e.currentTarget.style.borderColor = "var(--border-hover)";
-        e.currentTarget.style.background = "var(--bg-3)";
-      }}
-      onMouseLeave={e => {
-        e.currentTarget.style.borderColor = "var(--border)";
-        e.currentTarget.style.background = "var(--bg-2)";
-      }}
     >
-      <div className="flex items-start justify-between gap-4 mb-3">
-        <h3 className="font-semibold text-base" style={{ color: "var(--text)" }}>{title}</h3>
-        <svg className="w-4 h-4 shrink-0 mt-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
-          style={{ color: "var(--text-2)" }}
-          fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 17L17 7M7 7h10v10" />
-        </svg>
-      </div>
-      <p className="text-sm leading-relaxed mb-4" style={{ color: "var(--text-2)" }}>{description}</p>
-      <div className="flex flex-wrap gap-2">
-        {tags.map(tag => (
-          <span key={tag} className="text-xs px-2 py-0.5 rounded font-mono"
-            style={{ background: "var(--bg-3)", color: "var(--text-3)", border: "1px solid var(--border)" }}>
-            {tag}
+      {/* Screenshot placeholder */}
+      <div
+        className="relative w-full"
+        style={{
+          aspectRatio: "16/9",
+          background: "var(--bg-3)",
+          backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)`,
+          backgroundSize: "20px 20px",
+          borderBottom: "1px solid var(--border)",
+        }}
+      >
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="font-mono text-xs tracking-wider px-3 py-1.5 rounded"
+            style={{
+              color: "var(--text-3)",
+              border: "1px solid var(--border)",
+              background: "rgba(0,0,0,0.4)",
+            }}>
+            {title}
           </span>
-        ))}
-      </div>
-      {demo && (
-        <div className="mt-4 text-xs font-mono" style={{ color: "var(--accent)" }}>
-          → {demo}
         </div>
-      )}
+        {/* Arrow on hover */}
+        <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+          <svg className="w-4 h-4" style={{ color: "var(--text-3)" }}
+            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 17L17 7M7 7h10v10" />
+          </svg>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-5">
+        <h3 className="font-semibold text-[0.95rem] mb-2" style={{ color: "var(--text)" }}>{title}</h3>
+        <p className="text-[0.86rem] leading-relaxed mb-4" style={{ color: "var(--text-2)", lineHeight: "1.7" }}>
+          {description}
+        </p>
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {tags.map(tag => (
+            <span key={tag} className="text-[0.72rem] px-2 py-0.5 rounded font-mono"
+              style={{ background: "var(--bg-3)", color: "var(--text-3)", border: "1px solid var(--border)" }}>
+              {tag}
+            </span>
+          ))}
+        </div>
+        {demo && (
+          <div className="text-xs font-mono" style={{ color: "var(--accent)" }}>
+            ↗ {demo}
+          </div>
+        )}
+      </div>
     </Link>
   );
 }
