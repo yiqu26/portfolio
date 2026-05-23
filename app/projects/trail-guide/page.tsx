@@ -1,6 +1,12 @@
 "use client";
 import Nav from "@/components/Nav";
 import Link from "next/link";
+import ProjectCarousel from "@/components/ProjectCarousel";
+
+const images = [
+  { src: "/images/trail/1-home.png", alt: "Trail Guide 首頁" },
+  { src: "/images/trail/2-search.png", alt: "地圖搜尋" },
+];
 
 export default function TrailGuidePage() {
   return (
@@ -23,17 +29,7 @@ export default function TrailGuidePage() {
           台灣步道資訊平台，支援搜尋、收藏、評論與 GPS 附近步道功能。
         </p>
 
-        <div className="w-full rounded-xl overflow-hidden border mb-8"
-          style={{
-            aspectRatio: "16/9",
-            background: "var(--bg-3)",
-            backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)`,
-            backgroundSize: "24px 24px",
-            borderColor: "var(--border)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-          }}>
-          <span className="font-mono text-xs" style={{ color: "var(--text-3)" }}>trail.ngo-management-hub.com</span>
-        </div>
+        <ProjectCarousel images={images} />
 
         <div className="flex flex-wrap gap-3 mb-12">
           <a href="https://trail.ngo-management-hub.com" target="_blank" rel="noopener noreferrer"
