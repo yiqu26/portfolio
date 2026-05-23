@@ -7,7 +7,9 @@ const images = [
   { src: "/images/ngo/1-home.png", alt: "NGO 前台首頁" },
   { src: "/images/ngo/2-activity.png", alt: "活動總覽" },
   { src: "/images/ngo/3-purchase.png", alt: "物資認購" },
-  { src: "/images/ngo/4-admin.png", alt: "後台登入" },
+  { src: "/images/ngo/4-admin-dashboard.png", alt: "後台儀表板" },
+  { src: "/images/ngo/5-admin-cases.png", alt: "個案管理" },
+  { src: "/images/ngo/6-admin-activities.png", alt: "活動管理後台" },
 ];
 
 export default function NgoPage() {
