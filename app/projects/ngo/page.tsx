@@ -2,6 +2,7 @@
 import Nav from "@/components/Nav";
 import Link from "next/link";
 import ProjectCarousel from "@/components/ProjectCarousel";
+import Reveal from "@/components/Reveal";
 
 const images = [
   { src: "/images/ngo/1-home.png", alt: "NGO 前台首頁" },
@@ -25,18 +26,23 @@ export default function NgoPage() {
           ← 返回
         </Link>
 
-        <p className="font-mono text-xs uppercase tracking-widest mb-3" style={{ color: "var(--accent)" }}>
-          Project
-        </p>
-        <h1 className="text-4xl font-bold tracking-tight mb-4" style={{ color: "var(--text)" }}>
-          NGO Management System
-        </h1>
-        <p className="text-base leading-relaxed mb-8" style={{ color: "var(--text-2)" }}>
-          非營利組織管理平台，包含用戶前台與員工後台，從需求規劃、開發到部署獨立完成。
-        </p>
+        <Reveal>
+          <p className="font-mono text-xs uppercase tracking-widest mb-3" style={{ color: "var(--accent)" }}>
+            Project · 01
+          </p>
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4" style={{ color: "var(--text)", letterSpacing: "-0.025em" }}>
+            NGO Management System
+          </h1>
+          <p className="text-base leading-relaxed mb-8" style={{ color: "var(--text-2)" }}>
+            非營利組織管理平台，包含用戶前台與員工後台，從需求規劃、開發到部署獨立完成。
+          </p>
+        </Reveal>
 
-        <ProjectCarousel images={images} />
+        <Reveal delay={120}>
+          <ProjectCarousel images={images} />
+        </Reveal>
 
+        <Reveal delay={180}>
         <div className="flex flex-wrap gap-3 mb-12">
           <a href="https://ngo-management-hub.com" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium"
@@ -49,9 +55,11 @@ export default function NgoPage() {
             GitHub
           </a>
         </div>
+        </Reveal>
 
         <div className="space-y-10">
 
+          <Reveal>
           <section>
             <h2 className="font-mono text-xs uppercase tracking-widest mb-4" style={{ color: "var(--text-3)" }}>
               技術架構
@@ -70,7 +78,9 @@ export default function NgoPage() {
               ))}
             </div>
           </section>
+          </Reveal>
 
+          <Reveal>
           <section>
             <h2 className="font-mono text-xs uppercase tracking-widest mb-4" style={{ color: "var(--text-3)" }}>
               主要功能
@@ -91,7 +101,9 @@ export default function NgoPage() {
               ))}
             </ul>
           </section>
+          </Reveal>
 
+          <Reveal>
           <section>
             <h2 className="font-mono text-xs uppercase tracking-widest mb-4" style={{ color: "var(--text-3)" }}>
               部署方式
@@ -101,6 +113,7 @@ export default function NgoPage() {
               固定網域 <span className="font-mono px-1.5 py-0.5 rounded text-xs" style={{ background: "var(--bg-3)", color: "var(--accent)" }}>ngo-management-hub.com</span>，24/7 可存取。
             </p>
           </section>
+          </Reveal>
 
         </div>
       </main>

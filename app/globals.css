@@ -10,6 +10,9 @@
   --text-2: #888888;
   --text-3: #555555;
   --accent: #d4a843;
+  --accent-soft: rgba(212, 168, 67, 0.14);
+  --accent-glow: rgba(212, 168, 67, 0.22);
+  --grid-line: rgba(255, 255, 255, 0.035);
 }
 
 @theme inline {
@@ -35,6 +38,25 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   line-height: 1.6;
+  position: relative;
+}
+
+/* Global grain overlay — fixed so it never scrolls.
+   No blend-mode: avoids per-frame full-screen repaint on scroll. */
+body.noise::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Ensure all real content sits above the grain */
+body.noise > * {
+  position: relative;
+  z-index: 2;
 }
 
 ::selection {
@@ -47,6 +69,7 @@ a {
   text-decoration: none;
 }
 
+/* ---------- existing motion ---------- */
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.3; }
@@ -65,9 +88,90 @@ a {
   animation: blink 1s step-end infinite;
 }
 
+/* ---------- card hover (upgraded) ---------- */
 .card-hover {
-  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    background 0.35s ease;
+  will-change: transform;
 }
 .card-hover:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px);
+  border-color: rgba(212, 168, 67, 0.35);
+  box-shadow:
+    0 12px 40px -8px rgba(212, 168, 67, 0.18),
+    0 4px 16px -4px rgba(0, 0, 0, 0.6);
+}
+
+/* ---------- hero backdrop ---------- */
+/* Soft amber spotlight, fixed so it stays as you scroll the hero */
+.hero-spotlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.hero-spotlight::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 70%;
+  height: 90%;
+  background: radial-gradient(
+    ellipse at center,
+    var(--accent-glow) 0%,
+    transparent 60%
+  );
+  filter: blur(40px);
+}
+.hero-spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at 30% 20%, black 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 30% 20%, black 0%, transparent 70%);
+}
+
+/* ---------- image hover zoom (used inside ProjectCard) ---------- */
+.thumb-img {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.group:hover .thumb-img {
+  transform: scale(1.06);
+}
+
+/* ---------- scroll cue ---------- */
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+.scroll-cue svg {
+  animation: scroll-bounce 1.8s ease-in-out infinite;
+}
+.scroll-cue {
+  transition: color 0.25s ease;
+}
+.scroll-cue:hover {
+  color: var(--accent) !important;
+}
+
+/* ---------- tech tag hover ---------- */
+.tech-tag {
+  transition:
+    border-color 0.25s ease,
+    color 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+.tech-tag:hover {
+  border-color: rgba(212, 168, 67, 0.45);
+  color: var(--accent);
+  background: var(--accent-soft);
 }
