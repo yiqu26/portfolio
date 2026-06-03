@@ -17,7 +17,6 @@ export const projects: Project[] = [
     year: '2026',
     tagline: '台灣步道資訊平台 — 搜尋、互動地圖、評論系統、PWA',
     thumb: '/projects/trail-guide.png',
-    video: '/projects/trail-guide.mp4',
     highlights: [
       '從 2021 年 GoHiking 專案全面重構，前後端重寫',
       '步道搜尋／篩選、GPS 附近步道、Leaflet + OpenStreetMap 互動地圖',
@@ -36,7 +35,6 @@ export const projects: Project[] = [
     year: '2026',
     tagline: '非營利組織管理平台 — 員工後台 + 公眾前台，共用一套 API',
     thumb: '/projects/ngo.png',
-    video: '/projects/ngo.mp4',
     highlights: [
       '雙前端架構：React SPA 員工後台 + ASP.NET MVC SSR 公眾前台，共用 ASP.NET Core 9 API',
       'AI 三功能、OpenAI／Azure 雙 provider 切換：GPT-4o-mini 文案、DALL·E 3 封面、Whisper 語音轉文字',
