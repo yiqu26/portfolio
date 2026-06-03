@@ -1,40 +1,31 @@
+import { CONTACT_EMAIL } from '../data/projects'
+
+const links = ['About', 'Projects', 'Skills', 'Contact']
+
 export default function Navbar() {
   return (
-    <nav className="fixed top-4 left-0 right-0 z-50 px-6 lg:px-12 flex justify-between items-center">
-      {/* Logo */}
-      <div
-        className="liquid-glass rounded-full px-5 py-2"
-        style={{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', letterSpacing: '-0.5px' }}
-      >
+    <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-5 lg:px-12">
+      <a href="#" className="font-display text-2xl leading-none tracking-tight text-white">
         ✦
-      </div>
+      </a>
 
-      {/* Links */}
-      <div className="liquid-glass rounded-full px-2 py-1.5 hidden md:flex items-center gap-1">
-        {['About', 'Projects', 'Skills', 'Contact'].map(link => (
+      <div className="hidden items-center gap-8 md:flex">
+        {links.map((l) => (
           <a
-            key={link}
-            href={`#${link.toLowerCase()}`}
-            className="px-4 py-1.5 text-sm text-white/80 hover:text-white transition-colors rounded-full hover:bg-white/5"
-            style={{ fontFamily: 'var(--font-body)' }}
+            key={l}
+            href={`#${l.toLowerCase()}`}
+            className="text-sm text-white/60 transition-colors hover:text-[#D4FF00]"
           >
-            {link}
+            {l}
           </a>
         ))}
-        <a
-          href="mailto:your@email.com"
-          className="ml-1 px-4 py-1.5 text-sm bg-white text-black rounded-full font-medium hover:bg-white/90 transition-colors"
-        >
-          Hire me
-        </a>
       </div>
 
-      {/* Mobile: just hire me */}
       <a
-        href="mailto:your@email.com"
-        className="md:hidden liquid-glass rounded-full px-5 py-2 text-sm text-white"
+        href={`mailto:${CONTACT_EMAIL}`}
+        className="text-sm text-white/60 transition-colors hover:text-[#D4FF00]"
       >
-        Hire me
+        Hire me ↗
       </a>
     </nav>
   )
