@@ -26,8 +26,9 @@ export const projects: Project[] = [
   {
     name: 'Hokkori',
     desc: '手作串珠手鏈品牌展示網站。溫暖療癒的日系風格，導流蝦皮購物。',
-    tags: ['Next.js 16', 'Tailwind CSS', 'GSAP'],
-    status: 'wip',
+    tags: ['Next.js', 'Tailwind CSS', 'GSAP'],
+    link: 'https://hokkori.pages.dev/',
+    status: 'live',
   },
 ]
 
