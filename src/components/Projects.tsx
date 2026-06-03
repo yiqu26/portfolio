@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { gsap, useGSAP } from '../lib/gsap'
+import ProjectMedia from './ProjectMedia'
 import { projects } from '../data/projects'
 
 export default function Projects() {
@@ -48,12 +49,16 @@ export default function Projects() {
             <div
               className={`overflow-hidden rounded-lg border border-white/10 ${i % 2 ? 'lg:order-2' : ''}`}
             >
-              <img
-                src={p.thumb}
-                alt={p.name}
-                loading="lazy"
-                className="proj-img aspect-[16/10] w-full object-cover object-top"
-              />
+              {p.video ? (
+                <ProjectMedia src={p.video} poster={p.thumb} alt={p.name} />
+              ) : (
+                <img
+                  src={p.thumb}
+                  alt={p.name}
+                  loading="lazy"
+                  className="proj-img aspect-[16/10] w-full object-cover object-top"
+                />
+              )}
             </div>
 
             <div className="flex flex-col justify-center">
