@@ -1,5 +1,7 @@
 import { useRef } from 'react'
 import { gsap, useGSAP } from '../lib/gsap'
+import Prompt from './Prompt'
+import Cursor from './Cursor'
 import { CONTACT_EMAIL, GITHUB_URL } from '../data/projects'
 
 export default function Contact() {
@@ -9,13 +11,13 @@ export default function Contact() {
     () => {
       const mm = gsap.matchMedia()
       mm.add('(prefers-reduced-motion: no-preference)', () => {
-        gsap.from('.contact-reveal', {
-          y: 40,
+        gsap.from('.contact-line', {
+          y: 20,
           opacity: 0,
-          duration: 0.9,
-          stagger: 0.15,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: root.current, start: 'top 75%' },
+          stagger: 0.12,
+          duration: 0.6,
+          ease: 'power2.out',
+          scrollTrigger: { trigger: root.current, start: 'top 80%' },
         })
       })
     },
@@ -23,35 +25,28 @@ export default function Contact() {
   )
 
   return (
-    <section
-      ref={root}
-      id="contact"
-      className="mx-auto max-w-5xl px-6 py-32 text-center md:py-56"
-    >
-      <p className="contact-reveal mb-8 text-xs uppercase tracking-[0.3em] text-white/40">
-        Contact
+    <section ref={root} id="contact" className="mx-auto max-w-3xl px-6 py-32 lg:px-12">
+      <p className="contact-line text-sm">
+        <Prompt symbol="$">./hire.sh</Prompt>
+        <Cursor />
       </p>
-      <h2 className="contact-reveal display-giant mb-12">
-        Let&apos;s build
-        <br />
-        something.
-      </h2>
+      <p className="contact-line mt-6 text-dim">opening channel...</p>
       <a
         href={`mailto:${CONTACT_EMAIL}`}
-        className="contact-reveal inline-block text-xl text-accent underline decoration-1 underline-offset-8 transition-opacity hover:opacity-70 sm:text-3xl"
+        className="contact-line mt-2 inline-block text-2xl text-accent underline decoration-1 underline-offset-8 hover:opacity-70 sm:text-4xl"
       >
         {CONTACT_EMAIL}
       </a>
-      <div className="contact-reveal mt-10">
+      <p className="contact-line mt-8 text-sm">
         <a
           href={GITHUB_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-white/50 transition-colors hover:text-white"
+          className="text-dim transition-colors hover:text-white"
         >
-          GitHub ↗
+          &gt; gh — github.com/yiqu26
         </a>
-      </div>
+      </p>
     </section>
   )
 }
