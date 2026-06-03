@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { gsap, useGSAP } from '../lib/gsap'
+import Prompt from './Prompt'
 
 export default function About() {
   const root = useRef<HTMLElement>(null)
@@ -8,12 +9,12 @@ export default function About() {
     () => {
       const mm = gsap.matchMedia()
       mm.add('(prefers-reduced-motion: no-preference)', () => {
-        gsap.from('.about-reveal', {
-          y: 40,
+        gsap.from('.about-line', {
+          y: 20,
           opacity: 0,
-          duration: 0.9,
-          stagger: 0.15,
-          ease: 'power3.out',
+          stagger: 0.1,
+          duration: 0.6,
+          ease: 'power2.out',
           scrollTrigger: { trigger: root.current, start: 'top 70%' },
         })
       })
@@ -22,18 +23,17 @@ export default function About() {
   )
 
   return (
-    <section ref={root} id="about" className="mx-auto max-w-5xl px-6 py-32 md:py-48">
-      <p className="about-reveal mb-8 text-xs uppercase tracking-[0.3em] text-white/40">
-        About
+    <section ref={root} id="about" className="mx-auto max-w-3xl px-6 py-32 lg:px-12">
+      <p className="about-line text-sm">
+        <Prompt>cat about.md</Prompt>
       </p>
-      <h2 className="about-reveal font-display text-4xl leading-tight tracking-tight sm:text-6xl">
-        I'm <span className="text-accent">李奕琦</span> — a full-stack developer building
-        clean, reliable systems.
-      </h2>
-      <p className="about-reveal mt-8 max-w-2xl text-lg leading-relaxed text-white/50">
+      <p className="about-line mt-6 text-xl sm:text-2xl">
+        I&apos;m <span className="text-accent">李奕琦</span>, a full-stack developer.
+      </p>
+      <p className="about-line mt-4 max-w-2xl leading-relaxed text-dim">
         I focus on C# / .NET backends and React frontends. I care about code that stays
-        maintainable, systems that actually work in production, and interfaces that feel
-        considered. Currently open to new opportunities.
+        maintainable, systems that work in production, and interfaces that feel considered.
+        Currently open to new opportunities.
       </p>
     </section>
   )
