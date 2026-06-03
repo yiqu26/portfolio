@@ -1,75 +1,99 @@
-import Starfield from './Starfield'
+import { useRef } from 'react'
+import { gsap, SplitText, useGSAP } from '../lib/gsap'
+import { GITHUB_URL } from '../data/projects'
 
 export default function Hero() {
+  const root = useRef<HTMLElement>(null)
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia()
+
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        gsap.set('.hero-title', { visibility: 'visible' })
+        const split = new SplitText('.hero-title', {
+          type: 'lines,chars',
+          linesClass: 'overflow-hidden',
+        })
+
+        const tl = gsap.timeline()
+        tl.from(split.chars, {
+          yPercent: 120,
+          opacity: 0,
+          stagger: 0.012,
+          duration: 0.8,
+          ease: 'power3.out',
+        })
+        tl.from(
+          '.hero-fade',
+          { y: 24, opacity: 0, stagger: 0.12, duration: 0.7, ease: 'power2.out' },
+          '-=0.4',
+        )
+
+        gsap.to('.hero-inner', {
+          yPercent: 18,
+          opacity: 0.4,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: root.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+          },
+        })
+
+        return () => split.revert()
+      })
+
+      mm.add('(prefers-reduced-motion: reduce)', () => {
+        gsap.set('.hero-title', { visibility: 'visible' })
+      })
+    },
+    { scope: root },
+  )
+
   return (
-    <section className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden">
-      {/* Animated starfield background */}
-      <Starfield />
+    <section
+      ref={root}
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6"
+    >
+      <div className="hero-inner relative z-10 mx-auto max-w-5xl text-center">
+        <p className="hero-fade mb-8 text-xs uppercase tracking-[0.3em] text-white/40">
+          Available for work
+        </p>
 
-      {/* Subtle vignette overlay */}
-      <div className="absolute inset-0 z-10 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%)' }}
-      />
-
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-48 z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to bottom, transparent, #000)' }}
-      />
-
-      {/* Content */}
-      <div className="relative z-20 text-center px-6 max-w-4xl mx-auto">
-        {/* Badge */}
-        <div className="animate-fade-rise inline-flex items-center gap-2 liquid-glass rounded-full px-4 py-1.5 mb-8">
-          <span className="w-1.5 h-1.5 rounded-full bg-blue-300 animate-pulse" />
-          <span className="text-xs text-white/70 tracking-widest uppercase" style={{ fontFamily: 'var(--font-body)' }}>
-            Available for work
-          </span>
-        </div>
-
-        {/* Heading */}
-        <h1
-          className="animate-fade-rise-1 text-5xl sm:text-7xl md:text-8xl font-normal leading-[0.92] tracking-[-3px] mb-6"
-          style={{ fontFamily: 'var(--font-display)' }}
-        >
+        <h1 className="hero-title split-prep display-giant mb-8">
           Building things
           <br />
-          <em className="not-italic" style={{ color: 'rgba(150,180,255,0.55)' }}>worth exploring.</em>
+          <span className="text-accent">worth exploring.</span>
         </h1>
 
-        {/* Subtext */}
-        <p
-          className="animate-fade-rise-2 text-base sm:text-lg text-white/50 max-w-md mx-auto leading-relaxed mb-10"
-          style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}
-        >
+        <p className="hero-fade mx-auto mb-10 max-w-md text-base leading-relaxed text-white/50 sm:text-lg">
           Full-stack developer focused on C# / .NET backends and React frontends.
           I build systems that are clean, maintainable, and actually work.
         </p>
 
-        {/* CTAs */}
-        <div className="animate-fade-rise-3 flex items-center justify-center gap-4 flex-wrap">
+        <div className="hero-fade flex flex-wrap items-center justify-center gap-5">
           <a
             href="#projects"
-            className="liquid-glass rounded-full px-7 py-3 text-sm text-white hover:bg-white/5 transition-colors"
-            style={{ fontFamily: 'var(--font-body)' }}
+            className="border-b border-white/30 pb-1 text-sm text-white transition-colors hover:border-[#D4FF00] hover:text-[#D4FF00]"
           >
             View Projects ↓
           </a>
           <a
-            href="https://github.com/yiqu26"
+            href={GITHUB_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full px-7 py-3 text-sm bg-white text-black hover:bg-white/90 transition-colors font-medium"
-            style={{ fontFamily: 'var(--font-body)' }}
+            className="border-b border-transparent pb-1 text-sm text-white/60 transition-colors hover:text-white"
           >
-            GitHub
+            GitHub ↗
           </a>
         </div>
       </div>
 
-      {/* Scroll hint */}
-      <div className="animate-fade-rise-4 absolute bottom-10 z-20 flex flex-col items-center gap-2">
-        <span className="text-xs text-white/30 tracking-widest uppercase" style={{ fontFamily: 'var(--font-body)' }}>scroll</span>
-        <div className="w-px h-8 bg-gradient-to-b from-white/20 to-transparent" />
+      <div className="hero-fade absolute bottom-10 z-10 flex flex-col items-center gap-2">
+        <span className="text-[10px] uppercase tracking-[0.3em] text-white/30">scroll</span>
+        <div className="h-8 w-px bg-gradient-to-b from-white/25 to-transparent" />
       </div>
     </section>
   )
