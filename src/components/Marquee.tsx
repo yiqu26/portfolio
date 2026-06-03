@@ -12,7 +12,7 @@ export default function Marquee() {
         const loop = gsap.to(track.current, {
           xPercent: -50,
           ease: 'none',
-          duration: 20,
+          duration: 24,
           repeat: -1,
         })
         return () => loop.kill()
@@ -21,19 +21,19 @@ export default function Marquee() {
     { scope: track },
   )
 
-  // Duplicate the list so a -50% shift lands seamlessly at the start of the copy.
-  const items = [...projects, ...projects]
+  const logs = projects.map(
+    (p) => `${p.name.toLowerCase().replace(/\s+/g, '-')} ${p.status === 'live' ? 'live' : 'up'}`,
+  )
+  const items = [...logs, ...logs]
 
   return (
-    <section className="overflow-hidden border-y border-white/10 py-10">
-      <div ref={track} className="flex w-max whitespace-nowrap will-change-transform">
-        {items.map((p, i) => (
-          <span
-            key={i}
-            className="flex items-center font-display text-5xl text-white/80 sm:text-7xl"
-          >
-            <span className="px-8">{p.name}</span>
-            <span className="text-accent">✦</span>
+    <section className="overflow-hidden border-y border-white/10 py-4">
+      <div ref={track} className="flex w-max whitespace-nowrap text-sm text-dim">
+        {items.map((log, i) => (
+          <span key={i} className="flex items-center">
+            <span className="text-accent">●</span>
+            <span className="px-3">{log}</span>
+            <span className="px-4 text-white/20">✦</span>
           </span>
         ))}
       </div>
