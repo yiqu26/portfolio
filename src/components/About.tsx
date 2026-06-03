@@ -30,17 +30,14 @@ export default function About() {
         <span className="about-reveal font-mono text-xs text-white/30">(01 / WHOAMI)</span>
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr]">
-        <p className="about-reveal font-display text-2xl font-bold leading-snug sm:text-3xl">
-          我是 <span className="text-accent">LungYi</span>，喜歡把東西真正做出來、跑得起來的全端工程師。
+      <div className="max-w-3xl">
+        <p className="about-reveal text-xl leading-relaxed text-white/80 sm:text-2xl">
+          我主要用 <span className="text-accent">C# / .NET</span> 做後端、
+          <span className="text-accent">React</span>{' '}
+          做前端。在專案裡做過雙前端架構的平台、AI 功能整合、金流串接與
+          PWA——我也在意那些看不見的部分：乾淨的架構、安全性，以及能長期維護的程式碼。
         </p>
-        <div className="about-reveal flex flex-col gap-4 text-lg leading-relaxed text-dim">
-          <p>
-            我主要用 C# / .NET 做後端、React 做前端。在專案裡做過雙前端架構的平台、AI
-            功能整合、金流串接與 PWA——我也在意那些看不見的部分：乾淨的架構、安全性，以及能長期維護的程式碼。
-          </p>
-          <p className="text-white/70">目前正在尋找第一份正職工作。</p>
-        </div>
+        <p className="about-reveal mt-8 text-lg text-dim">目前正在尋找第一份正職工作。</p>
       </div>
     </section>
   )

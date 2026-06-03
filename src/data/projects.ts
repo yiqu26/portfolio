@@ -34,7 +34,7 @@ export const projects: Project[] = [
     name: 'NGO Management System',
     year: '2026',
     tagline: '非營利組織管理平台 — 員工後台 + 公眾前台，共用一套 API',
-    thumb: '/projects/ngo.png',
+    thumb: '/projects/ngo.jpg',
     highlights: [
       '雙前端架構：React SPA 員工後台 + ASP.NET MVC SSR 公眾前台，共用 ASP.NET Core 9 API',
       'AI 三功能、OpenAI／Azure 雙 provider 切換：GPT-4o-mini 文案、DALL·E 3 封面、Whisper 語音轉文字',
