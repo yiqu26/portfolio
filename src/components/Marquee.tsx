@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { gsap, useGSAP } from '../lib/gsap'
-import { projects } from '../data/projects'
+
+const words = ['Full-stack', 'C# / .NET', 'React', 'TypeScript', 'SQL', 'AI Integration', 'Open to work']
 
 export default function Marquee() {
   const track = useRef<HTMLDivElement>(null)
@@ -12,7 +13,7 @@ export default function Marquee() {
         const loop = gsap.to(track.current, {
           xPercent: -50,
           ease: 'none',
-          duration: 24,
+          duration: 22,
           repeat: -1,
         })
         return () => loop.kill()
@@ -21,19 +22,15 @@ export default function Marquee() {
     { scope: track },
   )
 
-  const logs = projects.map(
-    (p) => `${p.name.toLowerCase().replace(/\s+/g, '-')} ${p.status === 'live' ? 'live' : 'up'}`,
-  )
-  const items = [...logs, ...logs]
+  const items = [...words, ...words]
 
   return (
-    <section className="overflow-hidden border-y border-white/10 py-4">
-      <div ref={track} className="flex w-max whitespace-nowrap text-sm text-dim">
-        {items.map((log, i) => (
-          <span key={i} className="flex items-center">
-            <span className="text-accent">●</span>
-            <span className="px-3">{log}</span>
-            <span className="px-4 text-white/20">✦</span>
+    <section className="overflow-hidden border-y border-white/10 py-8">
+      <div ref={track} className="flex w-max items-center whitespace-nowrap">
+        {items.map((w, i) => (
+          <span key={i} className="flex items-center font-display text-4xl font-bold sm:text-6xl">
+            <span className="px-8 text-white/85">{w}</span>
+            <span className="text-accent">✦</span>
           </span>
         ))}
       </div>

@@ -1,6 +1,5 @@
 import { useRef } from 'react'
 import { gsap, useGSAP } from '../lib/gsap'
-import Cursor from './Cursor'
 import { GITHUB_URL } from '../data/projects'
 
 export default function Hero() {
@@ -9,60 +8,74 @@ export default function Hero() {
   useGSAP(
     () => {
       const mm = gsap.matchMedia()
-
       mm.add('(prefers-reduced-motion: no-preference)', () => {
-        gsap.set(['.out1', '.out2'], { autoAlpha: 0 })
-        const tl = gsap.timeline({ defaults: { ease: 'none' } })
-        tl.to('#cmd1', { text: 'whoami', duration: 0.6 })
-          .to('.out1', { autoAlpha: 1, duration: 0.2 }, '+=0.15')
-          .to('#cmd2', { text: 'cat ~/intro', duration: 0.7 }, '+=0.35')
-          .to('.out2', { autoAlpha: 1, duration: 0.2 }, '+=0.15')
-          .from('.hero-cta', { autoAlpha: 0, y: 8, stagger: 0.1 }, '+=0.1')
-      })
+        const tl = gsap.timeline({ defaults: { ease: 'power4.out' } })
+        tl.from('.hero-glow', { scale: 0.6, autoAlpha: 0, duration: 1.4, ease: 'power2.out' })
+          .from('.hero-line > span', { yPercent: 115, duration: 1, stagger: 0.12 }, 0.25)
+          .from('.hero-rise', { y: 24, autoAlpha: 0, stagger: 0.1, duration: 0.7 }, 0.8)
+          .from('.hero-vert', { autoAlpha: 0, x: -12, duration: 0.8 }, 0.7)
 
-      mm.add('(prefers-reduced-motion: reduce)', () => {
-        const c1 = document.querySelector('#cmd1')
-        if (c1) c1.textContent = 'whoami'
-        const c2 = document.querySelector('#cmd2')
-        if (c2) c2.textContent = 'cat ~/intro'
+        gsap.to('.hero-glow', {
+          yPercent: 8,
+          xPercent: 6,
+          duration: 6,
+          ease: 'sine.inOut',
+          yoyo: true,
+          repeat: -1,
+        })
       })
     },
     { scope: root },
   )
 
   return (
-    <section ref={root} className="flex min-h-screen items-center px-6 lg:px-12">
-      <div className="mx-auto w-full max-w-3xl text-base leading-relaxed sm:text-lg">
-        <p>
-          <span className="text-accent">$</span> <span id="cmd1" />
-        </p>
-        <p className="out1 mt-2 text-2xl sm:text-4xl">
-          LungYi <span className="text-dim">— full-stack developer (C#/.NET · React)</span>
+    <section
+      ref={root}
+      className="relative flex min-h-screen flex-col justify-center overflow-hidden px-6 pt-28 lg:px-12"
+    >
+      <div
+        className="hero-glow pointer-events-none absolute -top-1/4 left-1/4 h-[60vw] w-[60vw] rounded-full"
+        style={{ background: 'radial-gradient(circle, rgba(212,255,0,0.16), transparent 65%)', filter: 'blur(60px)' }}
+      />
+
+      <span className="hero-vert absolute left-6 top-1/2 hidden -translate-y-1/2 rotate-180 font-mono text-xs uppercase tracking-[0.4em] text-white/30 [writing-mode:vertical-rl] lg:block">
+        Portfolio — 2026
+      </span>
+
+      <div className="relative z-10 mx-auto w-full max-w-6xl">
+        <p className="hero-rise mb-6 font-mono text-sm uppercase tracking-[0.3em] text-accent">
+          ● Available for work · Taipei
         </p>
 
-        <p className="mt-6">
-          <span className="text-accent">$</span> <span id="cmd2" />
-        </p>
-        <p className="out2 mt-2 max-w-xl text-dim">
-          I build clean, maintainable systems and considered interfaces. Currently open to
-          new opportunities.
-          <Cursor />
-        </p>
+        <h1 className="font-display font-extrabold leading-[0.86] tracking-[-0.03em]" style={{ fontSize: 'clamp(3rem, 12vw, 11rem)' }}>
+          <span className="mask hero-line"><span className="block">Building things</span></span>
+          <span className="mask hero-line"><span className="block text-accent">worth exploring.</span></span>
+        </h1>
 
-        <div className="mt-10 flex gap-6 text-sm">
-          <a href="#projects" className="hero-cta text-accent hover:underline">
-            &gt; open projects
-          </a>
-          <a
-            href={GITHUB_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hero-cta text-dim transition-colors hover:text-white"
-          >
-            &gt; gh
-          </a>
+        <div className="mt-12 flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
+          <p className="hero-rise max-w-md text-lg leading-relaxed text-dim">
+            <span className="font-mono text-sm text-white/40">// </span>
+            LungYi — C# / .NET backends &amp; React frontends. Clean, maintainable, shipped.
+          </p>
+          <div className="hero-rise flex items-center gap-6 font-mono text-sm">
+            <a href="#projects" className="group flex items-center gap-2 text-white transition-colors hover:text-accent">
+              View work <span className="inline-block transition-transform group-hover:translate-y-1">↓</span>
+            </a>
+            <a
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-dim transition-colors hover:text-white"
+            >
+              GitHub ↗
+            </a>
+          </div>
         </div>
       </div>
+
+      <span className="hero-rise absolute bottom-8 right-6 font-mono text-xs tracking-widest text-white/25 lg:right-12">
+        (SCROLL ↓)
+      </span>
     </section>
   )
 }
