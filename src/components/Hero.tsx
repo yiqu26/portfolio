@@ -1,5 +1,6 @@
 import { useRef } from 'react'
-import { gsap, SplitText, useGSAP } from '../lib/gsap'
+import { gsap, useGSAP } from '../lib/gsap'
+import Cursor from './Cursor'
 import { GITHUB_URL } from '../data/projects'
 
 export default function Hero() {
@@ -10,90 +11,57 @@ export default function Hero() {
       const mm = gsap.matchMedia()
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
-        gsap.set('.hero-title', { visibility: 'visible' })
-        const split = new SplitText('.hero-title', {
-          type: 'lines,chars',
-          linesClass: 'overflow-hidden',
-        })
-
-        const tl = gsap.timeline()
-        tl.from(split.chars, {
-          yPercent: 120,
-          opacity: 0,
-          stagger: 0.012,
-          duration: 0.8,
-          ease: 'power3.out',
-        })
-        tl.from(
-          '.hero-fade',
-          { y: 24, opacity: 0, stagger: 0.12, duration: 0.7, ease: 'power2.out' },
-          '-=0.4',
-        )
-
-        gsap.to('.hero-inner', {
-          yPercent: 18,
-          opacity: 0.4,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: root.current,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: true,
-          },
-        })
-
-        return () => split.revert()
+        gsap.set(['.out1', '.out2'], { autoAlpha: 0 })
+        const tl = gsap.timeline({ defaults: { ease: 'none' } })
+        tl.to('#cmd1', { text: 'whoami', duration: 0.6 })
+          .to('.out1', { autoAlpha: 1, duration: 0.2 }, '+=0.15')
+          .to('#cmd2', { text: 'cat ~/intro', duration: 0.7 }, '+=0.35')
+          .to('.out2', { autoAlpha: 1, duration: 0.2 }, '+=0.15')
+          .from('.hero-cta', { autoAlpha: 0, y: 8, stagger: 0.1 }, '+=0.1')
       })
 
       mm.add('(prefers-reduced-motion: reduce)', () => {
-        gsap.set('.hero-title', { visibility: 'visible' })
+        const c1 = document.querySelector('#cmd1')
+        if (c1) c1.textContent = 'whoami'
+        const c2 = document.querySelector('#cmd2')
+        if (c2) c2.textContent = 'cat ~/intro'
       })
     },
     { scope: root },
   )
 
   return (
-    <section
-      ref={root}
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6"
-    >
-      <div className="hero-inner relative z-10 mx-auto max-w-5xl text-center">
-        <p className="hero-fade mb-8 text-xs uppercase tracking-[0.3em] text-white/40">
-          Available for work
+    <section ref={root} className="flex min-h-screen items-center px-6 lg:px-12">
+      <div className="mx-auto w-full max-w-3xl text-base leading-relaxed sm:text-lg">
+        <p>
+          <span className="text-accent">$</span> <span id="cmd1" />
+        </p>
+        <p className="out1 mt-2 text-2xl sm:text-4xl">
+          李奕琦 <span className="text-dim">— full-stack developer (C#/.NET · React)</span>
         </p>
 
-        <h1 className="hero-title split-prep display-giant mb-8">
-          Building things
-          <br />
-          <span className="text-accent">worth exploring.</span>
-        </h1>
-
-        <p className="hero-fade mx-auto mb-10 max-w-md text-base leading-relaxed text-white/50 sm:text-lg">
-          Full-stack developer focused on C# / .NET backends and React frontends.
-          I build systems that are clean, maintainable, and actually work.
+        <p className="mt-6">
+          <span className="text-accent">$</span> <span id="cmd2" />
+        </p>
+        <p className="out2 mt-2 max-w-xl text-dim">
+          I build clean, maintainable systems and considered interfaces. Currently open to
+          new opportunities.
+          <Cursor />
         </p>
 
-        <div className="hero-fade flex flex-wrap items-center justify-center gap-5">
-          <a
-            href="#projects"
-            className="border-b border-white/30 pb-1 text-sm text-white transition-colors hover:border-[#D4FF00] hover:text-[#D4FF00]"
-          >
-            View Projects ↓
+        <div className="mt-10 flex gap-6 text-sm">
+          <a href="#projects" className="hero-cta text-accent hover:underline">
+            &gt; open projects
           </a>
           <a
             href={GITHUB_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="border-b border-transparent pb-1 text-sm text-white/60 transition-colors hover:text-white"
+            className="hero-cta text-dim transition-colors hover:text-white"
           >
-            GitHub ↗
+            &gt; gh
           </a>
         </div>
-      </div>
-
-      <div className="hero-fade absolute bottom-10 z-10 flex flex-col items-center gap-2">
-        <span className="text-[10px] uppercase tracking-[0.3em] text-white/30">scroll</span>
-        <div className="h-8 w-px bg-gradient-to-b from-white/25 to-transparent" />
       </div>
     </section>
   )
