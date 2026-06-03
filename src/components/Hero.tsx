@@ -37,7 +37,7 @@ export default function Hero() {
           <span className="text-accent">$</span> <span id="cmd1" />
         </p>
         <p className="out1 mt-2 text-2xl sm:text-4xl">
-          李奕琦 <span className="text-dim">— full-stack developer (C#/.NET · React)</span>
+          LungYi <span className="text-dim">— full-stack developer (C#/.NET · React)</span>
         </p>
 
         <p className="mt-6">

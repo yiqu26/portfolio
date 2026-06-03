@@ -28,7 +28,7 @@ export default function About() {
         <Prompt>cat about.md</Prompt>
       </p>
       <p className="about-line mt-6 text-xl sm:text-2xl">
-        I&apos;m <span className="text-accent">李奕琦</span>, a full-stack developer.
+        I&apos;m <span className="text-accent">LungYi</span>, a full-stack developer.
       </p>
       <p className="about-line mt-4 max-w-2xl leading-relaxed text-dim">
         I focus on C# / .NET backends and React frontends. I care about code that stays

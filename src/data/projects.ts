@@ -20,7 +20,7 @@ export const projects: Project[] = [
     name: 'NGO Management System',
     desc: '非政府組織後台管理系統。活動管理、個案追蹤、物資分配、AI 優化功能。',
     tags: ['C#', 'ASP.NET Core', 'React', 'SQL Server', 'Docker'],
-    github: 'https://github.com/yiqu26/NGO-Management-System',
+    github: 'https://github.com/yiqu26/NGO-Admin-System',
     status: 'live',
   },
   {
