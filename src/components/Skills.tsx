@@ -1,10 +1,11 @@
 import { useRef } from 'react'
 import { gsap, useGSAP } from '../lib/gsap'
+import Prompt from './Prompt'
 
 const groups = [
-  { label: 'Backend', items: ['C#', 'ASP.NET Core', 'SQL Server', 'PostgreSQL', 'Docker'] },
-  { label: 'Frontend', items: ['React 19', 'TypeScript', 'Tailwind CSS', 'GSAP'] },
-  { label: 'Tooling', items: ['Vite', 'Git', 'Vercel'] },
+  { label: 'backend', items: ['C#', 'ASP.NET Core', 'SQL Server', 'PostgreSQL', 'Docker'] },
+  { label: 'frontend', items: ['React', 'TypeScript', 'Tailwind CSS', 'GSAP'] },
+  { label: 'tooling', items: ['Vite', 'Git', 'Vercel'] },
 ]
 
 export default function Skills() {
@@ -14,13 +15,13 @@ export default function Skills() {
     () => {
       const mm = gsap.matchMedia()
       mm.add('(prefers-reduced-motion: no-preference)', () => {
-        gsap.from('.skill-row', {
-          y: 30,
+        gsap.from('.skill-line', {
+          y: 16,
           opacity: 0,
-          duration: 0.8,
-          stagger: 0.12,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: root.current, start: 'top 70%' },
+          stagger: 0.1,
+          duration: 0.5,
+          ease: 'power2.out',
+          scrollTrigger: { trigger: root.current, start: 'top 75%' },
         })
       })
     },
@@ -28,21 +29,16 @@ export default function Skills() {
   )
 
   return (
-    <section ref={root} id="skills" className="mx-auto max-w-5xl px-6 py-32 md:py-48">
-      <p className="skill-row mb-12 text-xs uppercase tracking-[0.3em] text-white/40">Skills</p>
-      <div className="flex flex-col gap-10">
+    <section ref={root} id="skills" className="mx-auto max-w-3xl px-6 py-32 lg:px-12">
+      <p className="skill-line text-sm">
+        <Prompt>cat stack</Prompt>
+      </p>
+      <div className="mt-8 flex flex-col gap-3">
         {groups.map((g) => (
-          <div
-            key={g.label}
-            className="skill-row grid gap-4 border-t border-white/10 pt-6 md:grid-cols-[200px_1fr]"
-          >
-            <span className="font-display text-2xl text-accent">{g.label}</span>
-            <div className="flex flex-wrap gap-x-6 gap-y-2 text-lg text-white/70">
-              {g.items.map((i) => (
-                <span key={i}>{i}</span>
-              ))}
-            </div>
-          </div>
+          <p key={g.label} className="skill-line flex flex-col gap-1 sm:flex-row sm:gap-6">
+            <span className="w-28 shrink-0 text-accent">{g.label}:</span>
+            <span className="text-white/70">{g.items.join('  ')}</span>
+          </p>
         ))}
       </div>
     </section>
