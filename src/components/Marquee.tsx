@@ -1,30 +1,40 @@
-const projects = [
-  { name: 'Trail Guide', tag: 'React · .NET · PostgreSQL', img: 'https://trail-guide-eight.vercel.app' },
-  { name: 'NGO System', tag: 'C# · ASP.NET · SQL Server', img: '' },
-  { name: 'Hokkori', tag: 'Next.js · Tailwind', img: '' },
-]
-
-// Use colored placeholder cards for now
-const COLORS = [
-  'from-blue-900/40 to-indigo-900/40',
-  'from-violet-900/40 to-purple-900/40',
-  'from-cyan-900/40 to-blue-900/40',
-]
-
-const items = [...projects, ...projects] // duplicate for seamless loop
+import { useRef } from 'react'
+import { gsap, useGSAP } from '../lib/gsap'
+import { projects } from '../data/projects'
 
 export default function Marquee() {
+  const track = useRef<HTMLDivElement>(null)
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia()
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        const loop = gsap.to(track.current, {
+          xPercent: -50,
+          ease: 'none',
+          duration: 20,
+          repeat: -1,
+        })
+        return () => loop.kill()
+      })
+    },
+    { scope: track },
+  )
+
+  // Duplicate the list so a -50% shift lands seamlessly at the start of the copy.
+  const items = [...projects, ...projects]
+
   return (
-    <section className="py-20 overflow-hidden">
-      <div className="animate-marquee gap-6 whitespace-nowrap">
+    <section className="overflow-hidden border-y border-white/10 py-10">
+      <div ref={track} className="flex w-max whitespace-nowrap will-change-transform">
         {items.map((p, i) => (
-          <div
+          <span
             key={i}
-            className={`inline-flex flex-col justify-end flex-shrink-0 w-72 h-48 rounded-2xl bg-gradient-to-br ${COLORS[i % COLORS.length]} border border-white/10 p-5 mx-3`}
+            className="flex items-center font-display text-5xl text-white/80 sm:text-7xl"
           >
-            <p className="text-xs text-white/40 mb-1" style={{ fontFamily: 'var(--font-body)' }}>{p.tag}</p>
-            <p className="text-lg text-white" style={{ fontFamily: 'var(--font-display)' }}>{p.name}</p>
-          </div>
+            <span className="px-8">{p.name}</span>
+            <span className="text-accent">✦</span>
+          </span>
         ))}
       </div>
     </section>
