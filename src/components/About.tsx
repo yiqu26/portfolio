@@ -32,17 +32,14 @@ export default function About() {
 
       <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr]">
         <p className="about-reveal font-display text-2xl font-bold leading-snug sm:text-3xl">
-          I&apos;m <span className="text-accent">LungYi</span> — a full-stack developer who likes
-          shipping real, working systems.
+          我是 <span className="text-accent">LungYi</span>，喜歡把東西真正做出來、跑得起來的全端工程師。
         </p>
         <div className="about-reveal flex flex-col gap-4 text-lg leading-relaxed text-dim">
           <p>
-            I work across C# / .NET backends and React frontends. Across my projects I&apos;ve built
-            dual-frontend platforms, AI integrations, payment flows and PWAs — and I care about the
-            parts that don&apos;t show: clean architecture, security, and code that stays
-            maintainable.
+            我主要用 C# / .NET 做後端、React 做前端。在專案裡做過雙前端架構的平台、AI
+            功能整合、金流串接與 PWA——我也在意那些看不見的部分：乾淨的架構、安全性，以及能長期維護的程式碼。
           </p>
-          <p className="text-white/70">Currently open to my first full-time role.</p>
+          <p className="text-white/70">目前正在尋找第一份正職工作。</p>
         </div>
       </div>
     </section>

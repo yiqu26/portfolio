@@ -47,7 +47,7 @@ export default function Projects() {
         {projects.map((p, i) => (
           <article key={p.name} className="project-block grid gap-8 lg:grid-cols-2 lg:gap-14">
             <div
-              className={`overflow-hidden rounded-lg border border-white/10 ${i % 2 ? 'lg:order-2' : ''}`}
+              className={`self-center overflow-hidden rounded-lg border border-white/10 ${i % 2 ? 'lg:order-2' : ''}`}
             >
               {p.video ? (
                 <ProjectMedia src={p.video} poster={p.thumb} alt={p.name} />
