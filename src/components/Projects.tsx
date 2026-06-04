@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { gsap, useGSAP } from '../lib/gsap'
-import ProjectMedia from './ProjectMedia'
+import ProjectShowcase from './ProjectShowcase'
 import { projects } from '../data/projects'
 
 export default function Projects() {
@@ -19,8 +19,8 @@ export default function Projects() {
             ease: 'power3.out',
             scrollTrigger: { trigger: block, start: 'top 75%' },
           })
-          gsap.from(block.querySelector('.proj-img'), {
-            scale: 1.08,
+          gsap.from(block.querySelector('.proj-frame'), {
+            scale: 1.06,
             autoAlpha: 0,
             duration: 1,
             ease: 'power2.out',
@@ -46,19 +46,8 @@ export default function Projects() {
       <div className="flex flex-col gap-28">
         {projects.map((p, i) => (
           <article key={p.name} className="project-block grid gap-8 lg:grid-cols-2 lg:gap-14">
-            <div
-              className={`self-center overflow-hidden rounded-lg border border-white/10 ${i % 2 ? 'lg:order-2' : ''}`}
-            >
-              {p.video ? (
-                <ProjectMedia src={p.video} poster={p.thumb} alt={p.name} />
-              ) : (
-                <img
-                  src={p.thumb}
-                  alt={p.name}
-                  loading="lazy"
-                  className="proj-img aspect-[16/10] w-full object-cover object-top"
-                />
-              )}
+            <div className={`self-center ${i % 2 ? 'lg:order-2' : ''}`}>
+              <ProjectShowcase project={p} />
             </div>
 
             <div className="flex flex-col justify-center">

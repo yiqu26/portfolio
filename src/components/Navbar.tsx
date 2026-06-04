@@ -20,7 +20,7 @@ export default function Navbar() {
         ))}
       </div>
       <a href={`mailto:${CONTACT_EMAIL}`} className="font-mono text-sm text-accent hover:underline">
-        Let&apos;s talk ↗
+        Contact ↗
       </a>
     </nav>
   )

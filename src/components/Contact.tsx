@@ -26,9 +26,9 @@ export default function Contact() {
     <section ref={root} id="contact" className="mx-auto max-w-6xl px-6 py-32 lg:px-12">
       <span className="contact-reveal font-mono text-xs text-white/30">(04 / CONTACT)</span>
       <h2 className="contact-reveal mt-6 font-display text-6xl font-extrabold leading-[0.9] tracking-tight sm:text-8xl">
-        Let&apos;s build
+        Get in
         <br />
-        something<span className="text-accent">.</span>
+        touch<span className="text-accent">.</span>
       </h2>
 
       <div className="contact-reveal mt-12 flex flex-col items-start gap-4">
